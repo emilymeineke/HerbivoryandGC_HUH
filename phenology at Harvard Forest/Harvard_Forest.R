@@ -25,7 +25,7 @@ bb.leaf<-subset(blueberry, bcon == "BB")#leaf bud break
 #subset flower bud break
 bb.flower<-subset(blueberry, fbud == "BB")#flower bud break
 
-#calculate date of first flower/elaf bud for each individual each year
+#calculate date of first flower/leaf bud for each individual each year
 flower<-aggregate(bb.flower["julian"],bb.flower[c("yr","tree.id")], FUN= min)
 leaf<-aggregate(bb.leaf["julian"],bb.leaf[c("yr","tree.id")], FUN= min)
 
@@ -37,8 +37,10 @@ plot(bb$julian.x, bb$julian.y, col = bb$tree.id, pch=19, xlab = "FFD", ylab = "F
 
 #run the LME
 library(nlme)
+library(MuMIn)
 rand.int.model<-lme(julian.y~ julian.x, random = ~1|tree.id, data = bb)
 summary(rand.int.model)
+r.squaredGLMM(rand.int.model)
 
 #Linear mixed-effects model fit by REML
 # Data: bb 
@@ -67,8 +69,8 @@ summary(rand.int.model)
 
 
 #LM - Just to take a look at the r-sq
-lm.model<-lme(julian.y~ julian.x + tree.id, data = bb)
-summary(model)
+lm.model<-lm(julian.y~ julian.x + tree.id, data = bb)
+summary(lm.model)
 
 #Call:
 #lm(formula = julian.y ~ julian.x + tree.id, data = bb)
@@ -85,7 +87,7 @@ summary(model)
 #tree.idVACO-03  -2.1673     2.6072  -0.831 0.410398    
 #tree.idVACO-04  -0.9179     2.6269  -0.349 0.728473    
 #---
-#Signif. codes:  0 ‘***’ 0.001 ‘**’ 0.01 ‘*’ 0.05 ‘.’ 0.1 ‘ ’ 1
+#Signif. codes:  0 ?***? 0.001 ?**? 0.01 ?*? 0.05 ?.? 0.1 ? ? 1
 #
 #Residual standard error: 6.368 on 43 degrees of freedom
 #Multiple R-squared:  0.2981,    Adjusted R-squared:  0.2328 
