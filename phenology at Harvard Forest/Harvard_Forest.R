@@ -1,6 +1,7 @@
 setwd("C:/Users/davies/Documents/GitHub/HerbivoryandGC_HUH")
 
 data<-read.csv("phenology at Harvard Forest/HF_phenology.csv")
+data<-read.csv("HF_phenology.csv")
 
 #short function to extract year as a numeric variable
 substrRight <- function(x, n){
