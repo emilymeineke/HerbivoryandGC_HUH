@@ -24,7 +24,8 @@ blueberry<-subset(data, species=="VACO")
 #subset leaf bud break
 bb.leaf<-subset(blueberry, bcon == "BB")#leaf bud break
 #subset flower bud break
-bb.flower<-subset(blueberry, fbud == "BB")#flower bud break
+bb.flower<-subset(blueberry, fbud == "BB")#flower bud breaks
+
 
 #calculate date of first flower/leaf bud for each individual each year
 flower<-aggregate(bb.flower["julian"],bb.flower[c("yr","tree.id")], FUN= min)
@@ -41,7 +42,7 @@ library(nlme)
 library(MuMIn)
 rand.int.model<-lme(julian.y~ julian.x, random = ~1|tree.id, data = bb)
 summary(rand.int.model)
-r.squaredGLMM(rand.int.model)
+#r.squaredGLMM(rand.int.model)
 
 #Linear mixed-effects model fit by REML
 # Data: bb 
